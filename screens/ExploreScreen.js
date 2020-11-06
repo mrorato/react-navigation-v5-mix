@@ -1,24 +1,29 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import {View, Text, Button, StyleSheet} from 'react-native';
+import Products from '../pages/products';
 
-const ExploreScreen = () => {
-    return (
-      <View style={styles.container}>
-        <Text>ExploreScreen</Text>
-        <Button
-          title="Click Here"
-          onPress={() => alert('Button Clicked!')}
-        />
-      </View>
-    );
+const ExploreScreen = ({route}) => {
+  const {itemId, nomeMercado} = route.params;
+  console.log('retorno id: ', itemId);
+  return (
+    <View style={styles.container}>
+      <Text style={styles.clientTitle}>{nomeMercado}</Text>
+      <Products id={itemId} />
+    </View>
+  );
 };
 
 export default ExploreScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, 
-    alignItems: 'center', 
-    justifyContent: 'center'
+    flex: 1,
+  },
+  clientTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#343333',
+    textAlign: 'center',
+    padding: 20,
   },
 });
