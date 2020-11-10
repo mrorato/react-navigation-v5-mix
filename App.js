@@ -38,7 +38,7 @@ const Drawer = createDrawerNavigator();
 
 const App = () => {
   // const [isLoading, setIsLoading] = React.useState(true);
-  // const [userToken, setUserToken] = React.useState(null); 
+  //const [userToken, setUserToken] = React.useState(null);
 
   const [isDarkTheme, setIsDarkTheme] = React.useState(false);
 
@@ -112,23 +112,20 @@ const App = () => {
   const authContext = React.useMemo(
     () => ({
       signIn: async foundUser => {
-        // setUserToken('fgkj');
+        //setUserToken(String(foundUser[0].userToken));
         // setIsLoading(false);
-        const userToken = String(foundUser[0].userToken);
-        const userName = foundUser[0].username;
-        const userId = foundUser[0].id;
-
+        const userToken = String(foundUser[0].id);
+        const userName = foundUser[0].fields.username;
         try {
           await AsyncStorage.setItem('userToken', userToken);
         } catch (e) {
           console.log(e);
         }
-        // console.log('user token: ', userToken);
+        //console.log('user token: ', userToken[0].fields.username);
         dispatch({
           type: 'LOGIN',
           id: userName,
           token: userToken,
-          userId: userId,
         });
       },
       signOut: async () => {

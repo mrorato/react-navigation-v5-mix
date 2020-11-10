@@ -1,4 +1,5 @@
 import React from 'react';
+import Airtable from 'airtable';
 import {View, StyleSheet} from 'react-native';
 import {
   useTheme,
@@ -15,12 +16,63 @@ import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+import AsyncStorage from '@react-native-community/async-storage';
+
 import {AuthContext} from '../components/context';
 
-export function DrawerContent(props) {
-  console.log(props);
-  const paperTheme = useTheme();
+const base = new Airtable({apiKey: 'keyTkRzZch5L5fRBj'}).base(
+  'appzbWSyUGrDmyr4A',
+);
 
+export function DrawerContent(props) {
+  const paperTheme = useTheme();
+  const [userId, setUserId] = React.useState([]);
+  const [data, setData] = React.useState({
+    isEmpty: true,
+  });
+  function searchId(idUser) {
+    base('Colaboradores').find(idUser, function(err, record) {
+      if (err) {
+        console.error(err);
+        return;
+      }
+      setUserId(record);
+      console.log('Retrieved', record.fields.Nome);
+    });
+    // base('Colaboradores')
+    //   .select({
+    //     // filterByFormula: `{Nome} = ${userName}`,
+    //     view: 'Users',
+    //   })
+    //   .eachPage((records, fetchNextPage) => {
+    //     console.log(records);
+    //     setUserId(records);
+    //     fetchNextPage();
+    //   });
+    return userId;
+  }
+
+  const getUserId = async () => {
+    try {
+      const value = await AsyncStorage.getItem('userToken');
+      if (value !== null) {
+        searchId(value);
+        console.log('value', value);
+      }
+    } catch (error) {
+      console.log('value');
+      // Error retrieving data
+    }
+  };
+  if (data.isEmpty) {
+    getUserId();
+    setData({
+      ...data,
+      isEmpty: false,
+    });
+  }
+  // getUserId();
+  // searchId(userFound);
   const {signOut, toggleTheme} = React.useContext(AuthContext);
 
   return (
@@ -36,8 +88,8 @@ export function DrawerContent(props) {
                 size={50}
               />
               <View style={{marginLeft: 15, flexDirection: 'column'}}>
-                <Title style={styles.title}>Miton</Title>
-                <Caption style={styles.caption}>@j_doe</Caption>
+                <Title style={styles.title}>{userId.fields.Nome}</Title>
+                {/* <Caption style={styles.caption}>@j_doe</Caption> */}
               </View>
             </View>
 
@@ -82,10 +134,10 @@ export function DrawerContent(props) {
               )}
               label="Produtos"
               onPress={() => {
-                this.props.navigation.navigate('Explore', {idProduct: ['1']});
+                props.navigation.navigate('Explore', {idProduct: ['1']});
               }}
             />
-            <DrawerItem
+            {/* <DrawerItem
               icon={({color, size}) => (
                 <Icon name="settings-outline" color={color} size={size} />
               )}
@@ -93,7 +145,7 @@ export function DrawerContent(props) {
               onPress={() => {
                 props.navigation.navigate('SettingsScreen');
               }}
-            />
+            /> */}
             <DrawerItem
               icon={({color, size}) => (
                 <Icon name="account-check-outline" color={color} size={size} />

@@ -108,33 +108,9 @@ const SignInScreen = ({navigation}) => {
       });
     }
   };
-  // const loadUser = async () => {
-  //   const response = await api.get(
-  //     '/Colaboradores?api_key=keyTkRzZch5L5fRBj&filterByFormula=AND(%7Bemail%7D+%3D+"milton%40com"%2C%7Bpassword%7D+%3D+"123456")',
-  //   );
-  //   const user = response.data;
-  //   console.log('UserObj:', user);
-  //   const find = Object.values(user);
-  //   console.log('UserArray:', find);
-  //   return find;
-  // };
-  // const UserObj = loadUser();
-  // console.log(UserObj);
-  // const User = Object.values(UserObj);
-  // console.log(User);
-
   const loginHandle = (userName, password) => {
     const user_test = searchUser(userName, password);
     console.log('user', user_test);
-    // const response = await api.get(
-    //       `/Colaboradores?api_key=keyTkRzZch5L5fRBj&fields%5B%5D=Nome&filterByFormula=AND(%7Bemail%7D+%3D+${userName}%2C%7Bpassword%7D+%3D+${password})`,
-    //     );
-    //     const user = response.data;
-    //     console.log('user:', user);
-    //     const find = Object.values(user);
-    //     console.log('Find:', find);
-    //     console.log('UserArray:', find);
-    // User.map((item) => key={item} item={item})
     const foundUser = user_test.filter(item => {
       console.log(item.fields.username);
       return (

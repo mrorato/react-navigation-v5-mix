@@ -18,11 +18,12 @@ export default ExploreScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#c8aa62',
   },
   clientTitle: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#343333',
+    color: '#fff',
     textAlign: 'center',
     padding: 20,
   },
