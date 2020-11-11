@@ -48,7 +48,7 @@ export default Products;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#494949',
     padding: 20,
   },
   productTitle: {

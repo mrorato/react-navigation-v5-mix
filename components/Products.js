@@ -10,14 +10,18 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {Input, Button} from 'react-native-elements';
 
 const base = new Airtable({apiKey: 'keyTkRzZch5L5fRBj'}).base(
   'appzbWSyUGrDmyr4A',
 );
 
-function updateProducts(data, product, userId) {
+function updateProducts(data, dataSug, product, userId) {
   // eslint-disable-next-line radix
   const qtd = parseInt(data);
+  // eslint-disable-next-line radix
+  const qtdSug = parseInt(dataSug);
   console.log('id-to-base:', userId);
   base('Estoque').update(
     [
@@ -25,6 +29,7 @@ function updateProducts(data, product, userId) {
         id: product.getId(),
         fields: {
           Qtd_Atual: qtd,
+          Qtd_Sugerida: qtdSug,
           Colaborador: [userId],
         },
       },
@@ -44,6 +49,7 @@ function updateProducts(data, product, userId) {
 const Product = ({product}) => {
   const [userId, setUserId] = React.useState([]);
   const [data, setData] = React.useState([]);
+  const [dataSug, setDataSug] = React.useState([]);
   const getUserId = async () => {
     try {
       const value = await AsyncStorage.getItem('userToken');
@@ -59,6 +65,9 @@ const Product = ({product}) => {
   const textInputQtd = val => {
     setData(val);
   };
+  const textInputQtdSug = val => {
+    setDataSug(val);
+  };
   return (
     <View style={styles.productContainer}>
       <Text style={styles.productTitle}>{product.fields.Produto_Nome}</Text>
@@ -68,21 +77,51 @@ const Product = ({product}) => {
           uri: `${product.fields.Foto[0].url}`,
         }}
       />
-      <Text>Qtd atual:</Text>
-      <TextInput
-        style={styles.textInputProduct}
-        placeholder={product.fields.Qtd_Atual.toString()}
-        numeric
-        value // This prop makes the input to get numeric only
-        keyboardType={'numeric'} // This prop help to open numeric keyboard
-        onChangeText={val => textInputQtd(val)}
-      />
+      <View style={styles.InputContainer}>
+        <Input
+          label="Qtd Atual"
+          placeholder={product.fields.Qtd_Atual.toString()}
+          leftIcon={{type: 'font-awesome', name: 'clipboard', color: '#C89C00'}}
+          numeric
+          value // This prop makes the input to get numeric only
+          keyboardType={'numeric'} // This prop help to open numeric keyboard
+          onChangeText={val => textInputQtd(val)}
+        />
+        <Input
+          label="Qtd Sugerida"
+          placeholder={product.fields.Qtd_Sugerida.toString()}
+          leftIcon={{type: 'font-awesome', name: 'cart-plus', color: '#C89C00'}}
+          numeric
+          value // This prop makes the input to get numeric only
+          keyboardType={'numeric'} // This prop help to open numeric keyboard
+          onChangeText={val => textInputQtdSug(val)}
+        />
+        {/* <Text style={styles.textInputTitleProduct}>Qtd atual:</Text> */}
+        {/* <TextInput
+          style={styles.textInputProduct}
+          placeholder={product.fields.Qtd_Atual.toString()}
+          numeric
+          value // This prop makes the input to get numeric only
+          keyboardType={'numeric'} // This prop help to open numeric keyboard
+          onChangeText={val => textInputQtd(val)}
+        /> */}
+        {/* <Text style={styles.textInputTitleProduct}>Qtd Sugerida:</Text> */}
+        {/* <TextInput
+          style={styles.textInputProduct}
+          placeholder={product.fields.Qtd_Sugerida.toString()}
+          numeric
+          value // This prop makes the input to get numeric only
+          keyboardType={'numeric'} // This prop help to open numeric keyboard
+          onChangeText={val => textInputQtdSug(val)}
+        /> */}
+      </View>
       <TouchableOpacity
         style={styles.productButton}
         onPress={() => {
-          updateProducts(data, product, userId);
+          updateProducts(data, dataSug, product, userId);
         }}>
-        <Text style={styles.productButtonText}>Atualizar</Text>
+        <Text style={styles.productButtonText}>ATUALIZAR</Text>
+        <Icon name="upload" color={'white'} size={30} />
       </TouchableOpacity>
     </View>
   );
@@ -95,9 +134,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  InputContainer: {
+    flex: 1,
+    alignItems: 'center',
+  },
   productImage: {
     width: 85,
     height: 85,
+    marginTop: 10,
+    marginBottom: 10,
     flex: 1,
     alignSelf: 'center',
   },
@@ -111,28 +156,37 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: '#EAEADD',
   },
+  textInputTitleProduct: {
+    padding: 10,
+    fontSize: 15,
+    fontWeight: 'bold',
+  },
   textInputProduct: {
-    fontSize: 30,
+    fontSize: 25,
+    color: '#bd9c4e',
     fontWeight: 'bold',
   },
   productContainer: {
-    color: '#fff',
+    color: 'grey',
     borderWidth: 1,
+    backgroundColor: '#fff',
     borderColor: '#DDD',
-    borderRadius: 5,
+    borderRadius: 15,
     padding: 20,
     marginBottom: 20,
   },
   productButton: {
-    height: 42,
-    borderRadius: 5,
+    height: 52,
+    borderRadius: 25,
     backgroundColor: '#C89C00',
+    flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 10,
   },
   productButtonText: {
     fontSize: 16,
+    padding: 10,
     fontWeight: 'bold',
     color: '#fff',
   },

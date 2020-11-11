@@ -29,6 +29,7 @@ export function DrawerContent(props) {
   const [userId, setUserId] = React.useState([]);
   const [data, setData] = React.useState({
     isEmpty: true,
+    Nome: '',
   });
   function searchId(idUser) {
     base('Colaboradores').find(idUser, function(err, record) {
@@ -49,6 +50,11 @@ export function DrawerContent(props) {
     //     setUserId(records);
     //     fetchNextPage();
     //   });
+    setData({
+      ...data,
+      isEmpty: false,
+      Nome: userId.fields.Nome,
+    });
     return userId;
   }
 
@@ -66,10 +72,6 @@ export function DrawerContent(props) {
   };
   if (data.isEmpty) {
     getUserId();
-    setData({
-      ...data,
-      isEmpty: false,
-    });
   }
   // getUserId();
   // searchId(userFound);
@@ -88,7 +90,7 @@ export function DrawerContent(props) {
                 size={50}
               />
               <View style={{marginLeft: 15, flexDirection: 'column'}}>
-                <Title style={styles.title}>{userId.fields.Nome}</Title>
+            <Title style={styles.title}>{data.Nome}</Title>
                 {/* <Caption style={styles.caption}>@j_doe</Caption> */}
               </View>
             </View>

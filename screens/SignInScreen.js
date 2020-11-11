@@ -247,7 +247,7 @@ const SignInScreen = ({navigation}) => {
                     color: '#fff',
                   },
                 ]}>
-                Sign In
+                Entrar
               </Text>
             </LinearGradient>
           </TouchableOpacity>
@@ -269,7 +269,7 @@ const SignInScreen = ({navigation}) => {
                   color: '#bd9c4e',
                 },
               ]}>
-              Sign Up
+              Cadastrar
             </Text>
           </TouchableOpacity>
         </View>
