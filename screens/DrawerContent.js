@@ -136,7 +136,7 @@ export function DrawerContent(props) {
               )}
               label="Produtos"
               onPress={() => {
-                props.navigation.navigate('Explore', {idProduct: ['1']});
+                props.navigation.navigate('Explore');
               }}
             />
             {/* <DrawerItem

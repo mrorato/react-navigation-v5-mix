@@ -8,17 +8,21 @@ import {Icon} from 'react-native-elements';
 //   navigation.navigate('Explore');
 // }
 
-const Client = ({client}) => {
+const Reldia = ({relat_dia}) => {
   const navigation = useNavigation();
   return (
     <View style={styles.clientContainer}>
       <ListItem bottomDivider containerStyle={{backgroundColor: '#fff'}}>
-        <Avatar rounded source={{uri: `${client.fields.Foto[0].url}`}} />
+        {/* <Avatar rounded source={{uri: `${client.fields.Foto[0].url}`}} /> */}
         <ListItem.Content>
-          <ListItem.Title>{client.fields.Nome}</ListItem.Title>
-          <ListItem.Subtitle>{client.fields.Mercado}</ListItem.Subtitle>
+          <ListItem.Title>
+            {relat_dia.fields.Nome} - {relat_dia.fields.Data}
+          </ListItem.Title>
+          <ListItem.Subtitle>
+            {relat_dia.fields.Cliente_Nome} - {relat_dia.fields.Label} - {relat_dia.fields.Qtd_Atual}
+          </ListItem.Subtitle>
         </ListItem.Content>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.clientButton}
           onPress={() => {
             navigation.navigate('Explore', {
@@ -29,8 +33,8 @@ const Client = ({client}) => {
             });
           }}>
           <ListItem.Chevron name="send" color="#C89C00" size={30} />
-          {/* <Text style={styles.clientButtonText}>Ver produtos</Text> */}
-        </TouchableOpacity>
+
+        </TouchableOpacity> */}
       </ListItem>
       {/* <Text style={styles.clientTitle}>{client.fields.Nome}</Text> */}
       {/* <TouchableOpacity
@@ -47,7 +51,7 @@ const Client = ({client}) => {
   );
 };
 
-export default Client;
+export default Reldia;
 
 const styles = StyleSheet.create({
   container: {
