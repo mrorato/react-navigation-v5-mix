@@ -1,6 +1,6 @@
 import React from 'react';
 import Airtable from 'airtable';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, SafeAreaView} from 'react-native';
 import {
   useTheme,
   Avatar,
@@ -14,7 +14,9 @@ import {
 } from 'react-native-paper';
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+// import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import AsyncStorage from '@react-native-community/async-storage';
 
@@ -30,6 +32,8 @@ export function DrawerContent(props) {
   const [data, setData] = React.useState({
     isEmpty: true,
     Nome: '',
+    Avatar: '',
+    isAdmin: false,
   });
   function searchId(idUser) {
     base('Colaboradores').find(idUser, function(err, record) {
@@ -38,22 +42,14 @@ export function DrawerContent(props) {
         return;
       }
       setUserId(record);
-      console.log('Retrieved', record.fields.Nome);
+      console.log('Retrieved', record);
     });
-    // base('Colaboradores')
-    //   .select({
-    //     // filterByFormula: `{Nome} = ${userName}`,
-    //     view: 'Users',
-    //   })
-    //   .eachPage((records, fetchNextPage) => {
-    //     console.log(records);
-    //     setUserId(records);
-    //     fetchNextPage();
-    //   });
     setData({
       ...data,
       isEmpty: false,
       Nome: userId.fields.Nome,
+      Avatar: userId.fields.user_avatar[0].url,
+      isAdmin: userId.fields.isAdmin,
     });
     return userId;
   }
@@ -85,12 +81,12 @@ export function DrawerContent(props) {
             <View style={{flexDirection: 'row', marginTop: 15}}>
               <Avatar.Image
                 source={{
-                  uri: 'https://api.adorable.io/avatars/50/abott@adorable.png',
+                  uri: `${data.Avatar}`,
                 }}
                 size={50}
               />
               <View style={{marginLeft: 15, flexDirection: 'column'}}>
-            <Title style={styles.title}>{data.Nome}</Title>
+                <Title style={styles.title}>{data.Nome}</Title>
                 {/* <Caption style={styles.caption}>@j_doe</Caption> */}
               </View>
             </View>
@@ -114,7 +110,7 @@ export function DrawerContent(props) {
           <Drawer.Section style={styles.drawerSection}>
             <DrawerItem
               icon={({color, size}) => (
-                <Icon name="home-outline" color={color} size={size} />
+                <Icon name="home" color={color} size={size} />
               )}
               label="Home"
               onPress={() => {
@@ -122,8 +118,8 @@ export function DrawerContent(props) {
               }}
             />
             <DrawerItem
-              icon={({color, size}) => (
-                <Icon name="account-outline" color={color} size={size} />
+              icon={({color}) => (
+                <Icon name="shopping-basket" color={color} size={20} />
               )}
               label="Mercados"
               onPress={() => {
@@ -132,7 +128,7 @@ export function DrawerContent(props) {
             />
             <DrawerItem
               icon={({color, size}) => (
-                <Icon name="bookmark-outline" color={color} size={size} />
+                <Icon name="archive" color={color} size={20} />
               )}
               label="Produtos"
               onPress={() => {
@@ -148,15 +144,36 @@ export function DrawerContent(props) {
                 props.navigation.navigate('SettingsScreen');
               }}
             /> */}
-            <DrawerItem
-              icon={({color, size}) => (
-                <Icon name="account-check-outline" color={color} size={size} />
-              )}
-              label="Supore"
-              onPress={() => {
-                props.navigation.navigate('SupportScreen');
-              }}
-            />
+            <SafeAreaView>
+              {data.isAdmin ? (
+                <DrawerItem
+                  icon={({color}) => (
+                    <Icon name="calendar-check-o" color={color} size={20} />
+                  )}
+                  label="Relatório Diário"
+                  onPress={() => {
+                    props.navigation.navigate('SupportScreen');
+                  }}
+                />
+              ) : null}
+            </SafeAreaView>
+            <SafeAreaView>
+              {data.isAdmin ? (
+                <DrawerItem
+                  icon={({color, size}) => (
+                    <Icon
+                      name="account-check-outline"
+                      color={color}
+                      size={size}
+                    />
+                  )}
+                  label="Relatório Diário"
+                  onPress={() => {
+                    props.navigation.navigate('SupportScreen');
+                  }}
+                />
+              ) : null}
+            </SafeAreaView>
           </Drawer.Section>
           <Drawer.Section title="Preferências">
             <TouchableRipple
@@ -176,7 +193,7 @@ export function DrawerContent(props) {
       <Drawer.Section style={styles.bottomDrawerSection}>
         <DrawerItem
           icon={({color, size}) => (
-            <Icon name="exit-to-app" color={color} size={size} />
+            <Icon name="sign-out" color={color} size={size} />
           )}
           label="Sair"
           onPress={() => {

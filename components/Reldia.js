@@ -1,26 +1,41 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import {useTheme} from '@react-navigation/native';
-import {useNavigation} from '@react-navigation/native';
+// import {useTheme} from '@react-navigation/native';
+// import {useNavigation} from '@react-navigation/native';
 import {ListItem, Avatar} from 'react-native-elements';
-import {Icon} from 'react-native-elements';
+import {parseISO, format, formatRelative, formatDistance} from 'date-fns';
+// import pt from 'date-fns/locales/pt';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 // function ListProducts() {
 //   navigation.navigate('Explore');
 // }
 
 const Reldia = ({relat_dia}) => {
-  const navigation = useNavigation();
+  const data_dia = parseISO(relat_dia.fields.Data);
+  const data_formated = format(data_dia, "dd/MM/yy '-' HH:mm'H'");
+  // const navigation = useNavigation();
   return (
     <View style={styles.clientContainer}>
       <ListItem bottomDivider containerStyle={{backgroundColor: '#fff'}}>
-        {/* <Avatar rounded source={{uri: `${client.fields.Foto[0].url}`}} /> */}
+        <Avatar
+          rounded
+          source={{uri: `${relat_dia.fields.user_avatar[0].url}`}}
+        />
         <ListItem.Content>
           <ListItem.Title>
-            {relat_dia.fields.Nome} - {relat_dia.fields.Data}
+            <Icon name="calendar" color={'#000'} size={15} /> {data_formated}
           </ListItem.Title>
-          <ListItem.Subtitle>
-            {relat_dia.fields.Cliente_Nome} - {relat_dia.fields.Label} - {relat_dia.fields.Qtd_Atual}
-          </ListItem.Subtitle>
+          <ListItem.Title>
+            <Icon name="shopping-basket" color={'#000'} size={15} />{' '}
+            {relat_dia.fields.Mercado}:{' '}{relat_dia.fields.Cliente_Nome}
+          </ListItem.Title>
+
+          <ListItem.Title>
+            <Icon name="archive" color={'#000'} size={15} />{' '}
+            {relat_dia.fields.Label}:{' '}{relat_dia.fields.Qtd_Atual} |{' '}
+             {relat_dia.fields.Qtd_Sugerida}
+          </ListItem.Title>
         </ListItem.Content>
         {/* <TouchableOpacity
           style={styles.clientButton}
@@ -88,5 +103,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: '#fff',
+  },
+  iconStyle: {
+    marginRight: 10,
+    padding: 20,
   },
 });

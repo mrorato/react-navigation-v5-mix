@@ -48,8 +48,8 @@ function updateProducts(data, dataSug, product, userId) {
 
 const Product = ({product}) => {
   const [userId, setUserId] = React.useState([]);
-  const [data, setData] = React.useState([]);
-  const [dataSug, setDataSug] = React.useState([]);
+  const [data, setData] = React.useState([product.fields.Qtd_Atual]);
+  const [dataSug, setDataSug] = React.useState([product.fields.Qtd_Sugerida]);
   const getUserId = async () => {
     try {
       const value = await AsyncStorage.getItem('userToken');
@@ -68,6 +68,18 @@ const Product = ({product}) => {
   const textInputQtdSug = val => {
     setDataSug(val);
   };
+
+  // const checkInput = () => {
+  //   console.log(data);
+  //   if (data === 0) {
+  //     console.log('entrou');
+  //     setData(product.fields.Qtd_Atual.toString());
+  //   }
+  //   if (!dataSug) {
+  //     setDataSug(product.fields.Qtd_Sugerida.toString());
+  //   }
+  // };
+
   return (
     <View style={styles.productContainer}>
       <Text style={styles.productTitle}>{product.fields.Produto_Nome}</Text>
@@ -118,6 +130,7 @@ const Product = ({product}) => {
       <TouchableOpacity
         style={styles.productButton}
         onPress={() => {
+          // checkInput();
           updateProducts(data, dataSug, product, userId);
         }}>
         <Text style={styles.productButtonText}>ATUALIZAR</Text>
