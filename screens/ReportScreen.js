@@ -5,8 +5,8 @@ import {Icon, BottomSheet, ListItem, Button} from 'react-native-elements';
 function refreshPage() {
   window.refreshPage();
 }
-const ProfileScreen = () => {
-  const [isVisible, setIsVisible] = React.useState(true);
+const ReportScreen = () => {
+  const [isVisible, setIsVisible] = React.useState(false);
   const list = [
     {title: 'List Item 1'},
     {title: 'List Item 2'},
@@ -44,7 +44,7 @@ const ProfileScreen = () => {
   );
 };
 
-export default ProfileScreen;
+export default ReportScreen;
 
 const styles = StyleSheet.create({
   container: {

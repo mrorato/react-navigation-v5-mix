@@ -32,10 +32,10 @@ const MainTabScreen = () => (
       name="Notifications"
       component={DetailsStackScreen}
       options={{
-        tabBarLabel: 'Updates',
+        tabBarLabel: 'Estoque',
         tabBarColor: '#c8aa62',
         tabBarIcon: ({color}) => (
-          <Icon name="ios-notifications" color={color} size={26} />
+          <Icon name="ios-archive" color={color} size={26} />
         ),
       }}
     />
@@ -107,7 +107,7 @@ const DetailsStackScreen = ({navigation}) => (
       },
     }}>
     <DetailsStack.Screen
-      name="Details"
+      name="Estoque"
       component={DetailsScreen}
       options={{
         headerLeft: () => (

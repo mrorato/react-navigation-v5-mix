@@ -69,17 +69,6 @@ const Product = ({product}) => {
     setDataSug(val);
   };
 
-  // const checkInput = () => {
-  //   console.log(data);
-  //   if (data === 0) {
-  //     console.log('entrou');
-  //     setData(product.fields.Qtd_Atual.toString());
-  //   }
-  //   if (!dataSug) {
-  //     setDataSug(product.fields.Qtd_Sugerida.toString());
-  //   }
-  // };
-
   return (
     <View style={styles.productContainer}>
       <Text style={styles.productTitle}>{product.fields.Produto_Nome}</Text>
@@ -108,24 +97,6 @@ const Product = ({product}) => {
           keyboardType={'numeric'} // This prop help to open numeric keyboard
           onChangeText={val => textInputQtdSug(val)}
         />
-        {/* <Text style={styles.textInputTitleProduct}>Qtd atual:</Text> */}
-        {/* <TextInput
-          style={styles.textInputProduct}
-          placeholder={product.fields.Qtd_Atual.toString()}
-          numeric
-          value // This prop makes the input to get numeric only
-          keyboardType={'numeric'} // This prop help to open numeric keyboard
-          onChangeText={val => textInputQtd(val)}
-        /> */}
-        {/* <Text style={styles.textInputTitleProduct}>Qtd Sugerida:</Text> */}
-        {/* <TextInput
-          style={styles.textInputProduct}
-          placeholder={product.fields.Qtd_Sugerida.toString()}
-          numeric
-          value // This prop makes the input to get numeric only
-          keyboardType={'numeric'} // This prop help to open numeric keyboard
-          onChangeText={val => textInputQtdSug(val)}
-        /> */}
       </View>
       <TouchableOpacity
         style={styles.productButton}

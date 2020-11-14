@@ -1,10 +1,10 @@
 import React from 'react';
+import Airtable from 'airtable';
 import {
   View,
   Text,
-  Button,
   TouchableOpacity,
-  Dimensions,
+  Alert,
   TextInput,
   Platform,
   StyleSheet,
@@ -15,84 +15,64 @@ import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+const base = new Airtable({apiKey: 'keyTkRzZch5L5fRBj'}).base(
+  'appzbWSyUGrDmyr4A',
+);
 
 const SignInScreen = ({navigation}) => {
   const [data, setData] = React.useState({
-    username: '',
-    password: '',
-    confirm_password: '',
-    check_textInputChange: false,
-    secureTextEntry: true,
-    confirm_secureTextEntry: true,
+    email: '',
   });
+  const [emailUser, setEmailUser] = React.useState([]);
+  console.log('email init:', emailUser);
+  function searchEmail(mailUser) {
+    console.log(mailUser);
+
+    base('Colaboradores')
+      .select({
+        view: 'Users',
+        filterByFormula: `NOT({email} != '${mailUser}')`,
+      })
+      .eachPage((records, fetchNextPage) => {
+        console.log(records);
+        setEmailUser(records);
+        fetchNextPage();
+      });
+    // console.log('result', emailUser[0].fields.email);
+    if (emailUser.length === 0) {
+      console.log('vazio');
+      Alert.alert('Email não encontrado, confira o email digitido!', [
+        {text: 'Ok'},
+      ]);
+    } else {
+      console.log('cheio');
+      Alert.alert('Sua senha foi enviada para ', `${mailUser}`, [{text: 'Ok'}]);
+    }
 
   const textInputChange = val => {
     if (val.length !== 0) {
       setData({
         ...data,
-        username: val,
+        email: val,
         check_textInputChange: true,
       });
     } else {
       setData({
         ...data,
-        username: val,
+        email: val,
         check_textInputChange: false,
       });
     }
   };
 
-  const handlePasswordChange = val => {
-    setData({
-      ...data,
-      password: val,
-    });
-  };
-
-  const handleConfirmPasswordChange = val => {
-    setData({
-      ...data,
-      confirm_password: val,
-    });
-  };
-
-  const updateSecureTextEntry = () => {
-    setData({
-      ...data,
-      secureTextEntry: !data.secureTextEntry,
-    });
-  };
-
-  const updateConfirmSecureTextEntry = () => {
-    setData({
-      ...data,
-      confirm_secureTextEntry: !data.confirm_secureTextEntry,
-    });
-  };
-
   return (
     <View style={styles.container}>
-      <StatusBar backgroundColor="#009387" barStyle="light-content" />
+      <StatusBar backgroundColor="#bd9c4e" barStyle="light-content" />
       <View style={styles.header}>
-        <Text style={styles.text_header}>Preencha seus dados</Text>
+        <Text style={styles.text_header}>Preencha seu email cadastrado</Text>
       </View>
       <Animatable.View animation="fadeInUpBig" style={styles.footer}>
         <ScrollView>
-          <Text style={styles.text_footer}>Nome</Text>
-          <View style={styles.action}>
-            <FontAwesome name="user-o" color="#05375a" size={20} />
-            <TextInput
-              placeholder="Seu nome"
-              style={styles.textInput}
-              autoCapitalize="none"
-              onChangeText={val => textInputChange(val)}
-            />
-            {data.check_textInputChange ? (
-              <Animatable.View animation="bounceIn">
-                <Feather name="check-circle" color="green" size={20} />
-              </Animatable.View>
-            ) : null}
-          </View>
           <Text style={styles.text_footer}>E-mail</Text>
           <View style={styles.action}>
             <FontAwesome name="mail" color="#05375a" size={20} />
@@ -108,78 +88,14 @@ const SignInScreen = ({navigation}) => {
               </Animatable.View>
             ) : null}
           </View>
-
-          <Text
-            style={[
-              styles.text_footer,
-              {
-                marginTop: 35,
-              },
-            ]}>
-            Senha
-          </Text>
-          <View style={styles.action}>
-            <Feather name="lock" color="#05375a" size={20} />
-            <TextInput
-              placeholder="Digite sua senha"
-              secureTextEntry={data.secureTextEntry ? true : false}
-              style={styles.textInput}
-              autoCapitalize="none"
-              onChangeText={val => handlePasswordChange(val)}
-            />
-            <TouchableOpacity onPress={updateSecureTextEntry}>
-              {data.secureTextEntry ? (
-                <Feather name="eye-off" color="grey" size={20} />
-              ) : (
-                <Feather name="eye" color="grey" size={20} />
-              )}
-            </TouchableOpacity>
-          </View>
-
-          <Text
-            style={[
-              styles.text_footer,
-              {
-                marginTop: 35,
-              },
-            ]}>
-            Confirme sua senha
-          </Text>
-          <View style={styles.action}>
-            <Feather name="lock" color="#05375a" size={20} />
-            <TextInput
-              placeholder="Digite novamente"
-              secureTextEntry={data.confirm_secureTextEntry ? true : false}
-              style={styles.textInput}
-              autoCapitalize="none"
-              onChangeText={val => handleConfirmPasswordChange(val)}
-            />
-            <TouchableOpacity onPress={updateConfirmSecureTextEntry}>
-              {data.secureTextEntry ? (
-                <Feather name="eye-off" color="grey" size={20} />
-              ) : (
-                <Feather name="eye" color="grey" size={20} />
-              )}
-            </TouchableOpacity>
-          </View>
-          <View style={styles.textPrivate}>
-            {/* <Text style={styles.color_textPrivate}>
-              By signing up you agree to our
-            </Text> */}
-            {/* <Text style={[styles.color_textPrivate, {fontWeight: 'bold'}]}>
-              {' '}
-              Terms of service
-            </Text> */}
-            {/* <Text style={styles.color_textPrivate}> and</Text> */}
-            {/* <Text style={[styles.color_textPrivate, {fontWeight: 'bold'}]}>
-              {' '}
-             
-            </Text> */}
-          </View>
           <View style={styles.button}>
-            <TouchableOpacity style={styles.signIn} onPress={() => {}}>
+            <TouchableOpacity
+              style={styles.signIn}
+              onPress={() => {
+                searchEmail(data.email);
+              }}>
               <LinearGradient
-                colors={['#08d4c4', '#01ab9d']}
+                colors={['#bd9c4e', '#bd9c4e']}
                 style={styles.signIn}>
                 <Text
                   style={[
@@ -188,7 +104,7 @@ const SignInScreen = ({navigation}) => {
                       color: '#fff',
                     },
                   ]}>
-                  Finalizar Cadastro
+                  Solicitar senha
                 </Text>
               </LinearGradient>
             </TouchableOpacity>
@@ -198,7 +114,7 @@ const SignInScreen = ({navigation}) => {
               style={[
                 styles.signIn,
                 {
-                  borderColor: '#009387',
+                  borderColor: '#bd9c4e',
                   borderWidth: 1,
                   marginTop: 15,
                 },
@@ -207,7 +123,7 @@ const SignInScreen = ({navigation}) => {
                 style={[
                   styles.textSign,
                   {
-                    color: '#009387',
+                    color: '#bd9c4e',
                   },
                 ]}>
                 Voltar
@@ -225,7 +141,7 @@ export default SignInScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#009387',
+    backgroundColor: '#bd9c4e',
   },
   header: {
     flex: 1,
@@ -247,14 +163,14 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   text_footer: {
-    color: '#05375a',
+    color: '#bd9c4e',
     fontSize: 18,
   },
   action: {
     flexDirection: 'row',
     marginTop: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#f2f2f2',
+    borderBottomColor: '#bd9c4e',
     paddingBottom: 5,
   },
   textInput: {

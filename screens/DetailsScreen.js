@@ -1,32 +1,27 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
-
-const DetailsScreen = ({navigation}) => {
-    return (
-      <View style={styles.container}>
-        <Text>Details Screen</Text>
-        <Button
-            title="Go to details screen...again"
-            onPress={() => navigation.push("Details")}
-        />
-        <Button
-            title="Go to home"
-            onPress={() => navigation.navigate("Home")}
-        />
-        <Button
-            title="Go back"
-            onPress={() => navigation.goBack()}
-        />
-      </View>
-    );
+import {View, Text, Button, StyleSheet} from 'react-native';
+import Stock from '../pages/Stock';
+const DetailsScreens = () => {
+  return (
+    <View style={styles.container}>
+      <Stock />
+      {/* <Button title="Click Here" onPress={() => alert('Button Clicked!')} /> */}
+    </View>
+  );
 };
 
-export default DetailsScreen;
+export default DetailsScreens;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1, 
-    alignItems: 'center', 
-    justifyContent: 'center'
+    flex: 1,
+    backgroundColor: '#c8aa62',
+  },
+  clientTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#fff',
+    textAlign: 'center',
+    padding: 20,
   },
 });

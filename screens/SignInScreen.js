@@ -35,8 +35,11 @@ const SignInScreen = ({navigation}) => {
     isValidPassword: true,
   });
   const [users, setUser] = React.useState([]);
-  function searchUser(userName, passWord) {
-    console.log('Nome: ', userName, 'Pass: ', passWord);
+  const [isLoad, setIsLoad] = React.useState({
+    notload: true,
+  });
+  function searchUser() {
+    //console.log('Nome: ', userName, 'Pass: ', passWord);
     base('Colaboradores')
       .select({
         // filterByFormula: `{Nome} = ${userName}`,
@@ -47,6 +50,7 @@ const SignInScreen = ({navigation}) => {
         setUser(records);
         fetchNextPage();
       });
+    setIsLoad(true);
     return users;
   }
 
@@ -108,8 +112,12 @@ const SignInScreen = ({navigation}) => {
       });
     }
   };
+  if (isLoad.notload) {
+    console.log('entrou isload');
+    searchUser();
+  }
   const loginHandle = (userName, password) => {
-    const user_test = searchUser(userName, password);
+    const user_test = searchUser();
     console.log('user', user_test);
     const foundUser = user_test.filter(item => {
       console.log(item.fields.username);
@@ -226,7 +234,7 @@ const SignInScreen = ({navigation}) => {
           </Animatable.View>
         )}
 
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('SignUpScreen')}>
           <Text style={{color: '#bd9c4e', marginTop: 15}}>
             Esqueceu a senha?
           </Text>

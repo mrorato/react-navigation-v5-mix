@@ -152,28 +152,24 @@ export function DrawerContent(props) {
                   )}
                   label="Relatório Diário"
                   onPress={() => {
-                    props.navigation.navigate('SupportScreen');
+                    props.navigation.navigate('ReportScreen');
                   }}
                 />
               ) : null}
             </SafeAreaView>
-            <SafeAreaView>
-              {data.isAdmin ? (
-                <DrawerItem
-                  icon={({color, size}) => (
-                    <Icon
-                      name="account-check-outline"
-                      color={color}
-                      size={size}
-                    />
-                  )}
-                  label="Relatório Diário"
-                  onPress={() => {
-                    props.navigation.navigate('SupportScreen');
-                  }}
-                />
-              ) : null}
-            </SafeAreaView>
+            {/* <SafeAreaView>
+              {data.isAdmin ? ( */}
+            <DrawerItem
+              icon={({color}) => (
+                <Icon name="list-alt" color={color} size={20} />
+              )}
+              label="Estoque"
+              onPress={() => {
+                props.navigation.navigate('Notifications');
+              }}
+            />
+            {/* ) : null} */}
+            {/* </SafeAreaView> */}
           </Drawer.Section>
           <Drawer.Section title="Preferências">
             <TouchableRipple
