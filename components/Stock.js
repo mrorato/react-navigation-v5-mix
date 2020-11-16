@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
-import {useTheme} from '@react-navigation/native';
-import {useNavigation} from '@react-navigation/native';
+// import {useTheme} from '@react-navigation/native';
+// import {useNavigation} from '@react-navigation/native';
 import {ListItem, Avatar} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 // function ListProducts() {
@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 // }
 
 const Stock = ({stock}) => {
-  const navigation = useNavigation();
+  //const navigation = useNavigation();
   return (
     <View style={styles.clientContainer}>
       <ListItem bottomDivider containerStyle={{backgroundColor: '#fff'}}>

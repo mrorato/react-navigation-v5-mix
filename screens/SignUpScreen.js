@@ -13,21 +13,20 @@ import {
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import LinearGradient from 'react-native-linear-gradient';
-import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import {Tooltip} from 'react-native-elements';
+
 const base = new Airtable({apiKey: 'keyTkRzZch5L5fRBj'}).base(
   'appzbWSyUGrDmyr4A',
 );
 
-const SignInScreen = ({navigation}) => {
+const SignUpScreen = ({navigation}) => {
   const [data, setData] = React.useState({
     email: '',
   });
   const [emailUser, setEmailUser] = React.useState([]);
-  console.log('email init:', emailUser);
   function searchEmail(mailUser) {
-    console.log(mailUser);
-
     base('Colaboradores')
       .select({
         view: 'Users',
@@ -38,17 +37,36 @@ const SignInScreen = ({navigation}) => {
         setEmailUser(records);
         fetchNextPage();
       });
-    // console.log('result', emailUser[0].fields.email);
     if (emailUser.length === 0) {
-      console.log('vazio');
-      Alert.alert('Email não encontrado, confira o email digitido!', [
+      Alert.alert('Erro', 'E-mail não cadastrado, verifique a digitação', [
         {text: 'Ok'},
       ]);
+      return;
     } else {
-      console.log('cheio');
-      Alert.alert('Sua senha foi enviada para ', `${mailUser}`, [{text: 'Ok'}]);
+      console.log('cheio', emailUser[0].id);
+      base('Colaboradores').update(
+        [
+          {
+            id: emailUser[0].id,
+            fields: {
+              forgot_pass: 1,
+            },
+          },
+        ],
+        function(err, emailUser) {
+          if (err) {
+            console.error(err);
+            return;
+          }
+        },
+      );
+      Alert.alert(
+        'Senha Recuperada',
+        `A senha foi enviada para o ${mailUser}`,
+        [{text: 'Ok'}],
+      );
     }
-
+  }
   const textInputChange = val => {
     if (val.length !== 0) {
       setData({
@@ -75,7 +93,7 @@ const SignInScreen = ({navigation}) => {
         <ScrollView>
           <Text style={styles.text_footer}>E-mail</Text>
           <View style={styles.action}>
-            <FontAwesome name="mail" color="#05375a" size={20} />
+            <Icon name="envelope" color={'#bd9c4e'} size={20} />
             <TextInput
               placeholder="digite seu e-mail"
               style={styles.textInput}
@@ -135,8 +153,7 @@ const SignInScreen = ({navigation}) => {
     </View>
   );
 };
-
-export default SignInScreen;
+export default SignUpScreen;
 
 const styles = StyleSheet.create({
   container: {

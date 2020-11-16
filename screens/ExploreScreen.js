@@ -4,7 +4,8 @@ import Products from '../pages/products';
 import {Avatar} from 'react-native-elements';
 
 const ExploreScreen = ({route}) => {
-  if (route.params.itemId === null) {
+  if (route.params.length === 0) {
+    console.log('entrou if');
     <View style={styles.container}>
       <Text style={styles.clientTitle}>Mercado não selecionado</Text>
     </View>;
