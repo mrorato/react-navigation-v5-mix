@@ -27,6 +27,7 @@ import MainTabScreen from './screens/MainTabScreen';
 import ReportScreen from './screens/ReportScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import BookmarkScreen from './screens/BookmarkScreen';
+import StockScreen from './screens/StockScreen';
 
 import {AuthContext} from './components/context';
 
@@ -186,6 +187,7 @@ const App = () => {
               <Drawer.Screen name="ReportScreen" component={ReportScreen} />
               <Drawer.Screen name="SettingsScreen" component={SettingsScreen} />
               <Drawer.Screen name="BookmarkScreen" component={BookmarkScreen} />
+              <Drawer.Screen name="StockScreen" component={StockScreen} />
             </Drawer.Navigator>
           ) : (
             <RootStackScreen />

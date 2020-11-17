@@ -21,14 +21,27 @@ const Client = ({client}) => {
         <TouchableOpacity
           style={styles.clientButton}
           onPress={() => {
-            navigation.navigate('Explore', {
+            navigation.navigate('BookmarkScreen', {
               itemId: client.fields.ID,
               nomeMercado: client.fields.Nome,
               Rede: client.fields.Mercado,
               Logo: client.fields.Foto[0].url,
             });
           }}>
-          <ListItem.Chevron name="send" color="#C89C00" size={30} />
+          <Icon name="eye" type="font-awesome" color="#C89C00" size={25} />
+          {/* <Text style={styles.clientButtonText}>Ver produtos</Text> */}
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.clientButton}
+          onPress={() => {
+            navigation.navigate('StockScreen', {
+              itemId: client.fields.ID,
+              nomeMercado: client.fields.Nome,
+              Rede: client.fields.Mercado,
+              Logo: client.fields.Foto[0].url,
+            });
+          }}>
+          <Icon name="pencil" type="font-awesome" color="#C89C00" size={25} />
           {/* <Text style={styles.clientButtonText}>Ver produtos</Text> */}
         </TouchableOpacity>
       </ListItem>

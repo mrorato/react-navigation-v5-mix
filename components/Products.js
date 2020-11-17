@@ -83,8 +83,8 @@ const Product = ({product}) => {
           label="Qtd Atual"
           placeholder={product.fields.Qtd_Atual.toString()}
           leftIcon={{type: 'font-awesome', name: 'clipboard', color: '#C89C00'}}
-          numeric
-          value // This prop makes the input to get numeric only
+          // numeric
+          // value // This prop makes the input to get numeric only
           keyboardType={'numeric'} // This prop help to open numeric keyboard
           onChangeText={val => textInputQtd(val)}
         />
@@ -92,8 +92,8 @@ const Product = ({product}) => {
           label="Qtd Sugerida"
           placeholder={product.fields.Qtd_Sugerida.toString()}
           leftIcon={{type: 'font-awesome', name: 'cart-plus', color: '#C89C00'}}
-          numeric
-          value // This prop makes the input to get numeric only
+          // numeric
+          // value // This prop makes the input to get numeric only
           keyboardType={'numeric'} // This prop help to open numeric keyboard
           onChangeText={val => textInputQtdSug(val)}
         />
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
   },
   productImage: {
     width: 85,
-    height: 85,
+    height: 150,
     marginTop: 10,
     marginBottom: 10,
     flex: 1,

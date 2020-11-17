@@ -4,8 +4,12 @@ import Clients from '../pages/clients';
 const ProfileScreen = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.clientTitle}> Mercados </Text>
-      <Clients />
+      <View>
+        <Text style={styles.clientTitle}> Mercados </Text>
+      </View>
+      <View style={{marginBottom: 50, paddingBottom:1}}>
+        <Clients />
+      </View>
       {/* <Button title="Click Here" onPress={() => alert('Button Clicked!')} /> */}
     </View>
   );

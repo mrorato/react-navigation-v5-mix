@@ -7,6 +7,7 @@ import {
   StyleSheet,
   ScrollView,
   TouchableOpacity,
+  RefreshControl,
 } from 'react-native';
 
 import Reldia from '../../components/Reldia';
@@ -16,6 +17,17 @@ const base = new Airtable({apiKey: 'keyTkRzZch5L5fRBj'}).base(
 );
 
 function RelatDia() {
+  const wait = timeout => {
+    return new Promise(resolve => {
+      setTimeout(resolve, timeout);
+    });
+  };
+  const [refreshing, setRefreshing] = React.useState(false);
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+   
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
   const [relatDia, setRelat_dia] = useState([]);
   //   const [Qtd_Sugerida_, setQtd_Sugerida] = useState([]);
   useEffect(() => {
@@ -32,7 +44,11 @@ function RelatDia() {
   }, []);
 
   return (
-    <ScrollView style={styles.clientContainer}>
+    <ScrollView
+      style={styles.clientContainer}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+      }>
       {relatDia.map(relat_dia => (
         <Reldia key={relat_dia.id} relat_dia={relat_dia} />
       ))}

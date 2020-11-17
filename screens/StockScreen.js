@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, Text, Button, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
-import Stock from '../pages/Stock';
+import Products from '../pages/products';
 import {Avatar} from 'react-native-elements';
 
-const BookmarkScreen = ({route}) => {
+const StockScreen = ({route}) => {
   const navigation = useNavigation();
   const {itemId, nomeMercado, Rede, Logo} = route.params;
   return (
@@ -18,7 +18,7 @@ const BookmarkScreen = ({route}) => {
             marginLeft: 20,
             marginTop: 20,
             marginBottom: 20,
-            marginRight: 1,
+            marginRight: 10,
           }}
           rounded
           source={{
@@ -26,23 +26,19 @@ const BookmarkScreen = ({route}) => {
           }}
         />
         <Text style={styles.clientTitle}>{nomeMercado}</Text>
-
         {/* <Text style={styles.clientSubTitle}>{Rede}</Text> */}
       </View>
-      <View style={{marginBottom: 20}}>
-        <Button
-          title="Voltar"
-          color="#c8aa62"
-          onPress={() => navigation.goBack()}
-        />
-        <Stock id={itemId} />
-      </View>
-      {/* <Button title="Click Here" onPress={() => alert('Button Clicked!')} /> */}
+      <Button
+        title="Voltar"
+        color="#c8aa62"
+        onPress={() => navigation.goBack()}
+      />
+      <Products id={itemId} />
     </View>
   );
 };
 
-export default BookmarkScreen;
+export default StockScreen;
 
 const styles = StyleSheet.create({
   container: {
@@ -51,7 +47,7 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center',
   },
   clientTitle: {
@@ -59,6 +55,12 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#fff',
     textAlign: 'center',
-    padding: 15,
+    paddingTop: 0,
+  },
+  clientSubTitle: {
+    fontSize: 15,
+    color: '#fff',
+    textAlign: 'center',
+    paddingBottom: 20,
   },
 });

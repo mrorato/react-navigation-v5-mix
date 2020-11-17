@@ -15,14 +15,15 @@ const Stock = ({stock}) => {
       <ListItem bottomDivider containerStyle={{backgroundColor: '#fff'}}>
         <Avatar rounded source={{uri: `${stock.fields.Foto[0].url}`}} />
         <ListItem.Content>
+          <ListItem.Title>{stock.fields.Produto_Nome}</ListItem.Title>
           <ListItem.Title>
-            {stock.fields.Produto_Nome}{'  '}
             <Icon name="clipboard" color={'#000'} size={15} />{' '}
-            {stock.fields.Qtd_Atual}{'  '}
+            {stock.fields.Qtd_Atual}
+            {'  '}
             <Icon name="cart-plus" color={'#000'} size={15} />{' '}
             {stock.fields.Qtd_Sugerida}
           </ListItem.Title>
-          <ListItem.Subtitle>{stock.fields.Mercado}</ListItem.Subtitle>
+  {/* <ListItem.Subtitle>{stock.fields.Mercado}{' '}{stock.fields.Cliente_Nome}</ListItem.Subtitle> */}
         </ListItem.Content>
         {/* <TouchableOpacity
           style={styles.clientButton}

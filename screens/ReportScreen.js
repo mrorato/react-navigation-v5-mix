@@ -1,11 +1,11 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Button} from 'react-native';
 import RelatDia from '../pages/relatorio/relat_dia';
-import {Icon, BottomSheet, ListItem, Button} from 'react-native-elements';
-function refreshPage() {
-  window.refreshPage();
-}
+import {Icon, BottomSheet, ListItem} from 'react-native-elements';
+import {useNavigation} from '@react-navigation/native';
+
 const ReportScreen = () => {
+  const navigation = useNavigation();
   const [isVisible, setIsVisible] = React.useState(false);
   const list = [
     {title: 'List Item 1'},
@@ -33,12 +33,17 @@ const ReportScreen = () => {
       </BottomSheet>
       <Text style={styles.clientTitle}> Relatório Diário </Text>
       <Button
+        title="Voltar"
+        color="#c8aa62"
+        onPress={() => navigation.goBack()}
+      />
+      {/* <Button
         title="Solid Button"
         onPress={() => {
           // window.refreshPage();
           // setIsVisible(true);
         }}
-      />
+      /> */}
       <RelatDia />
     </View>
   );

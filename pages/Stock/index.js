@@ -15,13 +15,14 @@ const base = new Airtable({apiKey: 'keyTkRzZch5L5fRBj'}).base(
   'appzbWSyUGrDmyr4A',
 );
 
-function Stock_general() {
+function Stock_general(props) {
   const [stock_general, setStock_general] = useState([]);
   //   const [Qtd_Sugerida_, setQtd_Sugerida] = useState([]);
   useEffect(() => {
     base('Estoque')
       .select({
         view: 'Ver_estoque',
+        filterByFormula: `{ID_Cliente} = ${props.id}`,
         sort: [{field: 'Cliente_Nome', direction: 'asc'}],
       })
       .eachPage((records, fetchNextPage) => {
@@ -30,7 +31,7 @@ function Stock_general() {
         // setQtd_Sugerida(records);
         fetchNextPage();
       });
-  }, []);
+  }, [props.id]);
 
   return (
     <ScrollView style={styles.clientContainer}>
