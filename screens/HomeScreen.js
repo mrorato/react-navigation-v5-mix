@@ -10,8 +10,11 @@ const HomeScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <StatusBar barStyle={theme.dark ? 'light-content' : 'dark-content'} />
-      <Text>Bem Vindo!</Text>
+      <Text style={styles.welcome}>Bem Vindo!</Text>
       {/* <Text style={{color: colors.text}}>Home Screen</Text> */}
+      <Text style={styles.subtitle}>
+        Navege através do menu lateral ou inferior.
+      </Text>
     </View>
   );
 };
@@ -23,5 +26,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  welcome: {
+    fontSize: 40,
+    fontWeight: '700',
+  },
+  subtitle: {
+    fontSize: 18,
   },
 });

@@ -33,6 +33,7 @@ export function DrawerContent(props) {
     isEmpty: true,
     Nome: '',
     Avatar: '',
+    Id: '',
     isAdmin: false,
   });
   function searchId(idUser) {
@@ -47,11 +48,12 @@ export function DrawerContent(props) {
     setData({
       ...data,
       isEmpty: false,
+      Id: userId.fields.userToken,
       Nome: userId.fields.Nome,
       Avatar: userId.fields.user_avatar[0].url,
       isAdmin: userId.fields.isAdmin,
     });
-    return userId;
+   // return userId;
   }
 
   const getUserId = async () => {
@@ -128,11 +130,11 @@ export function DrawerContent(props) {
             />
             <DrawerItem
               icon={({color, size}) => (
-                <Icon name="archive" color={color} size={20} />
+                <Icon name="user" color={color} size={20} />
               )}
-              label="Produtos"
+              label="Conta Usuário"
               onPress={() => {
-                props.navigation.navigate('Explore');
+                props.navigation.navigate('Notifications');
               }}
             />
             {/* <DrawerItem
@@ -159,7 +161,7 @@ export function DrawerContent(props) {
             </SafeAreaView>
             {/* <SafeAreaView>
               {data.isAdmin ? ( */}
-            <DrawerItem
+            {/* <DrawerItem
               icon={({color}) => (
                 <Icon name="list-alt" color={color} size={20} />
               )}
@@ -167,7 +169,7 @@ export function DrawerContent(props) {
               onPress={() => {
                 props.navigation.navigate('Notifications');
               }}
-            />
+            /> */}
             {/* ) : null} */}
             {/* </SafeAreaView> */}
           </Drawer.Section>

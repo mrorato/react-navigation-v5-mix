@@ -4,14 +4,14 @@ import {createMaterialBottomTabNavigator} from '@react-navigation/material-botto
 import {createStackNavigator} from '@react-navigation/stack';
 
 import Icon from 'react-native-vector-icons/Ionicons';
-
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import HomeScreen from './HomeScreen';
 import DetailsScreen from './DetailsScreen';
 import ExploreScreen from './ExploreScreen';
 import ProfileScreen from './ProfileScreen';
 
 const HomeStack = createStackNavigator();
-const DetailsStack = createStackNavigator();
+// const DetailsStack = createStackNavigator();
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -29,17 +29,6 @@ const MainTabScreen = () => (
       }}
     />
     <Tab.Screen
-      name="Notifications"
-      component={DetailsStackScreen}
-      options={{
-        tabBarLabel: 'Estoque',
-        tabBarColor: '#c8aa62',
-        tabBarIcon: ({color}) => (
-          <Icon name="ios-archive" color={color} size={26} />
-        ),
-      }}
-    />
-    <Tab.Screen
       name="Profile"
       component={ProfileScreen}
       options={{
@@ -51,16 +40,17 @@ const MainTabScreen = () => (
       }}
     />
     <Tab.Screen
-      name="Explore"
-      component={ExploreScreen}
+      name="Notifications"
+      component={DetailsScreen}
       options={{
-        tabBarLabel: 'Produtos',
+        tabBarLabel: 'Conta',
         tabBarColor: '#c8aa62',
         tabBarIcon: ({color}) => (
-          <Icon name="ios-list-box" color={color} size={26} />
+          <FontAwesome name="user-o" color={color} size={26} />
         ),
       }}
     />
+    <Tab.Screen name="Explore" component={ExploreScreen} />
   </Tab.Navigator>
 );
 
@@ -95,30 +85,38 @@ const HomeStackScreen = ({navigation}) => (
   </HomeStack.Navigator>
 );
 
-const DetailsStackScreen = ({navigation}) => (
-  <DetailsStack.Navigator
-    screenOptions={{
-      headerStyle: {
-        backgroundColor: '#c8aa62',
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {
-        fontWeight: 'bold',
-      },
-    }}>
-    <DetailsStack.Screen
-      name="Estoque"
-      component={DetailsScreen}
-      options={{
-        headerLeft: () => (
-          <Icon.Button
-            name="ios-menu"
-            size={25}
-            backgroundColor="#c8aa62"
-            onPress={() => navigation.openDrawer()}
-          />
-        ),
-      }}
-    />
-  </DetailsStack.Navigator>
-);
+// const DetailsStackScreen = ({navigation}) => (
+//   <DetailsStack.Navigator
+//     screenOptions={{
+//       headerStyle: {
+//         backgroundColor: '#c8aa62',
+//       },
+//       headerTintColor: '#fff',
+//       headerTitleStyle: {
+//         fontWeight: 'bold',
+//       },
+//     }}>
+//     <DetailsStack.Screen
+//       name="Estoque"
+//       params={0}
+//       component={DetailsScreen}
+//       options={{
+//         headerLeft: () => (
+//           <Icon.Button
+//             name="ios-menu"
+//             size={25}
+//             backgroundColor="#c8aa62"
+//             onPress={() =>
+//               navigation.openDrawer('Notifications', {
+//                 itemId: 0,
+//                 nomeMercado: 0,
+//                 Rede: 0,
+//                 Logo: 0,
+//               })
+//             }
+//           />
+//         ),
+//       }}
+//     />
+//   </DetailsStack.Navigator>
+// );
