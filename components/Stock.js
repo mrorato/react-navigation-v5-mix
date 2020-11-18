@@ -13,17 +13,20 @@ const Stock = ({stock}) => {
   return (
     <View style={styles.clientContainer}>
       <ListItem bottomDivider containerStyle={{backgroundColor: '#fff'}}>
-        <Avatar rounded source={{uri: `${stock.fields.Foto[0].url}`}} />
+        <Avatar size={50} rounded source={{uri: `${stock.fields.Foto[0].url}`}} />
         <ListItem.Content>
-          <ListItem.Title>{stock.fields.Produto_Nome}</ListItem.Title>
-          <ListItem.Title>
-            <Icon name="clipboard" color={'#000'} size={15} />{' '}
+          <ListItem.Title
+            style={{fontSize: 20, paddingBottom: 5, fontWeight: '500'}}>
+            {stock.fields.Produto_Nome}
+          </ListItem.Title>
+          <ListItem.Title style={{fontSize: 23}}>
+            <Icon name="clipboard" color={'#000'} size={20} />{' '}
             {stock.fields.Qtd_Atual}
             {'  '}
-            <Icon name="cart-plus" color={'#000'} size={15} />{' '}
+            <Icon name="cart-plus" color={'#000'} size={20} />{' '}
             {stock.fields.Qtd_Sugerida}
           </ListItem.Title>
-  {/* <ListItem.Subtitle>{stock.fields.Mercado}{' '}{stock.fields.Cliente_Nome}</ListItem.Subtitle> */}
+          {/* <ListItem.Subtitle>{stock.fields.Mercado}{' '}{stock.fields.Cliente_Nome}</ListItem.Subtitle> */}
         </ListItem.Content>
         {/* <TouchableOpacity
           style={styles.clientButton}
@@ -76,7 +79,7 @@ const styles = StyleSheet.create({
     // borderColor: '#DDD',
     // borderRadius: 5,
     // padding: 20,
-    // marginBottom: 20,
+    marginBottom: 20,
   },
   clientButton: {
     height: 42,
@@ -88,7 +91,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   clientButtonText: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: 'bold',
     color: '#fff',
   },

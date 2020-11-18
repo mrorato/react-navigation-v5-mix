@@ -13,7 +13,7 @@ const Client = ({client}) => {
   return (
     <View style={styles.clientContainer}>
       <ListItem bottomDivider containerStyle={{backgroundColor: '#fff'}}>
-        <Avatar rounded source={{uri: `${client.fields.Foto[0].url}`}} />
+        <Avatar size={40} rounded source={{uri: `${client.fields.Foto[0].url}`}} />
         <ListItem.Content>
           <ListItem.Title>{client.fields.Nome}</ListItem.Title>
           <ListItem.Subtitle>{client.fields.Mercado}</ListItem.Subtitle>
