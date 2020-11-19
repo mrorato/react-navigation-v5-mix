@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   },
   clientContainer: {
     color: '#fff',
-    backgroundColor: 'grey',
+    backgroundColor: '#fff',
     // borderWidth: 1,
     // borderColor: '#DDD',
     // borderRadius: 5,

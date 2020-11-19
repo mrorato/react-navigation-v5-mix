@@ -42,21 +42,35 @@ function Stock_general(props) {
     setIsLoading(false);
   }, [props.id]);
 
-  return (
-    <ScrollView style={styles.clientContainer}>
-      <ActivityIndicator size="large" color="#C89C00" animating={isLoading} />
-      {stock_general.map(stock => (
-        <Stock key={stock.id} stock={stock} />
-      ))}
-    </ScrollView>
-  );
+  if (isLoading) {
+    return (
+      <ScrollView style={styles.clientContainer}>
+        <View style={styles.horizontal}>
+          <ActivityIndicator
+            size="large"
+            color="#C89C00"
+            animating={isLoading}
+          />
+          <Text style={{color:'white', fontWeight:'800'}}>AGUARDE...</Text>
+        </View>
+      </ScrollView>
+    );
+  } else {
+    return (
+      <ScrollView style={styles.clientContainer}>
+        {stock_general.map(stock => (
+          <Stock key={stock.id} stock={stock} />
+        ))}
+      </ScrollView>
+    );
+  }
 }
 
 export default Stock_general;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000',
+    backgroundColor: '#fff',
   },
   clientTitle: {
     fontSize: 18,
@@ -87,5 +101,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: '#fff',
+  },
+  horizontal: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    padding: 10,
   },
 });

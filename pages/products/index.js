@@ -42,16 +42,37 @@ function Products(props) {
     setIsLoading(false);
   }, [props.id]);
 
-  return (
-    <ScrollView style={styles.container}>
-      <View style={styles.horizontal}>
-        <ActivityIndicator size="large" color="#C89C00" animating={isLoading} />
-      </View>
-      {products.map(product => (
-        <Product key={product.id} product={product} />
-      ))}
-    </ScrollView>
-  );
+  if (isLoading) {
+    return (
+      <ScrollView style={styles.container}>
+        <View style={styles.horizontal}>
+          <ActivityIndicator
+            size="large"
+            color="#C89C00"
+            animating={isLoading}
+          />
+          <Text style={{color:'white', fontWeight:'800'}}>AGUARDE...</Text>
+        </View>
+      </ScrollView>
+    );
+  } else {
+    return (
+      <ScrollView style={styles.container}>
+        {products.map(product => (
+          <Product key={product.id} product={product} />
+        ))}
+      </ScrollView>
+    );
+  }
+
+  // return (
+  //   <ScrollView style={styles.container}>
+  //     <View style={styles.horizontal}>
+  //       <ActivityIndicator size="large" color="#C89C00" animating={isLoading} />
+  //     </View>
+  //     <ListProducts />
+  //   </ScrollView>
+  // );
 }
 
 export default Products;
@@ -92,8 +113,9 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
   horizontal: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
     padding: 10,
   },
 });
