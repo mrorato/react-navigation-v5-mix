@@ -6,7 +6,7 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 
 import Product from '../../components/Products';
@@ -17,6 +17,13 @@ const base = new Airtable({apiKey: 'keyTkRzZch5L5fRBj'}).base(
 
 function Products(props) {
   const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [propsId, setPropsId] = useState(props.id);
+
+  if (propsId !== props.id) {
+    setPropsId(props.id);
+    setIsLoading(true);
+  }
   //   const [Qtd_Atual, setQtd_Atual] = useState([]);
   //   const [Qtd_Sugerida_, setQtd_Sugerida] = useState([]);
   useEffect(() => {
@@ -32,10 +39,14 @@ function Products(props) {
         // setQtd_Sugerida(records);
         fetchNextPage();
       });
+    setIsLoading(false);
   }, [props.id]);
 
   return (
     <ScrollView style={styles.container}>
+      <View style={styles.horizontal}>
+        <ActivityIndicator size="large" color="#C89C00" animating={isLoading} />
+      </View>
       {products.map(product => (
         <Product key={product.id} product={product} />
       ))}
@@ -79,5 +90,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     color: '#fff',
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10,
   },
 });

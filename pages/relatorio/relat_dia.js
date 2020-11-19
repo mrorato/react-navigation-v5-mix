@@ -23,14 +23,13 @@ function RelatDia() {
     });
   };
   const [refreshing, setRefreshing] = React.useState(false);
+  const [isGetReport, setIsGetReport] = React.useState(true);
   const onRefresh = React.useCallback(() => {
     setRefreshing(true);
-   
-    wait(2000).then(() => setRefreshing(false));
+    getReport();
   }, []);
   const [relatDia, setRelat_dia] = useState([]);
-  //   const [Qtd_Sugerida_, setQtd_Sugerida] = useState([]);
-  useEffect(() => {
+  function getReport() {
     base('Estoque')
       .select({
         view: 'Relat_dia',
@@ -38,10 +37,17 @@ function RelatDia() {
       .eachPage((records, fetchNextPage) => {
         console.log(records);
         setRelat_dia(records);
+
         // setQtd_Sugerida(records);
         fetchNextPage();
       });
-  }, []);
+    setIsGetReport(false);
+    setRefreshing(false);
+  }
+  //   const [Qtd_Sugerida_, setQtd_Sugerida] = useState([]);
+  if (isGetReport) {
+    getReport();
+  }
 
   return (
     <ScrollView

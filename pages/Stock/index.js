@@ -6,7 +6,7 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
+  ActivityIndicator,
 } from 'react-native';
 
 import Stock from '../../components/Stock';
@@ -17,6 +17,14 @@ const base = new Airtable({apiKey: 'keyTkRzZch5L5fRBj'}).base(
 
 function Stock_general(props) {
   const [stock_general, setStock_general] = useState([]);
+  const [isLoading, setIsLoading] = useState(props.active);
+  const [propsId, setPropsId] = useState(props.id);
+
+  if (propsId !== props.id) {
+    setPropsId(props.id);
+    setIsLoading(true);
+  }
+
   //   const [Qtd_Sugerida_, setQtd_Sugerida] = useState([]);
   useEffect(() => {
     base('Estoque')
@@ -31,10 +39,12 @@ function Stock_general(props) {
         // setQtd_Sugerida(records);
         fetchNextPage();
       });
+    setIsLoading(false);
   }, [props.id]);
 
   return (
     <ScrollView style={styles.clientContainer}>
+      <ActivityIndicator size="large" color="#C89C00" animating={isLoading} />
       {stock_general.map(stock => (
         <Stock key={stock.id} stock={stock} />
       ))}
@@ -63,7 +73,7 @@ const styles = StyleSheet.create({
     borderColor: '#DDD',
     borderRadius: 0,
     padding: 20,
-    marginBottom: 20,
+    marginBottom: 200,
   },
   clientButton: {
     height: 42,

@@ -1,23 +1,53 @@
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import Airtable from 'airtable';
 import AsyncStorage from '@react-native-community/async-storage';
 import {
   View,
   Text,
-  TextInput,
+  Linking,
   Image,
   Alert,
+  Button,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import {Input, Button} from 'react-native-elements';
+import {Input} from 'react-native-elements';
 
 //import User from '../components/User';
-
+const supportedURL =
+  'https://drive.google.com/file/d/1CssYJ44iA2UKyz88FVMiZmgyMhSnnXT8/view?usp=sharing';
 const base = new Airtable({apiKey: 'keyTkRzZch5L5fRBj'}).base(
   'appzbWSyUGrDmyr4A',
 );
+
+const OpenURLButton = ({url, children}) => {
+  const handlePress = useCallback(async () => {
+    // Checking if the link is supported for links with custom URL scheme.
+    const supported = await Linking.canOpenURL(url);
+
+    if (supported) {
+      // Opening the link with some app, if the URL scheme is "http" the web link should be opened
+      // by some browser in the mobile
+      await Linking.openURL(url);
+    } else {
+      Alert.alert(`Erro ao abrir: ${url}`);
+    }
+  }, [url]);
+
+  return (
+    // <Button
+    //   style={{borderRadius: 80}}
+    //   title={children}
+    //   onPress={handlePress}
+    //   color="#C89C00"
+    // />
+    <TouchableOpacity style={styles.productButton} onPress={handlePress}>
+      <Text style={styles.productButtonText}>{children}</Text>
+      <Icon name="refresh" color={'white'} size={30} />
+    </TouchableOpacity>
+  );
+};
 
 function DetailsScreen() {
   const [userInfo, setUserInfo] = useState([]);
@@ -138,6 +168,10 @@ function DetailsScreen() {
         <Text style={styles.productButtonText}>ATUALIZAR</Text>
         <Icon name="upload" color={'white'} size={30} />
       </TouchableOpacity>
+      <View style={{paddingTop: 20}}>
+        <Text style={{fontSize: 20, padding: 10}}>Aplicativo</Text>
+        <OpenURLButton url={supportedURL}>ATUALIZAR</OpenURLButton>
+      </View>
     </View>
   );
 }

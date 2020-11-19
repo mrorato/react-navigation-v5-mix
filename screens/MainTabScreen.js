@@ -46,7 +46,7 @@ const MainTabScreen = () => (
         tabBarLabel: 'Conta',
         tabBarColor: '#c8aa62',
         tabBarIcon: ({color}) => (
-          <FontAwesome name="user-o" color={color} size={26} />
+          <Icon name="ios-person" color={color} size={26} />
         ),
       }}
     />

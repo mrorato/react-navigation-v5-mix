@@ -29,13 +29,13 @@ const BookmarkScreen = ({route}) => {
 
         {/* <Text style={styles.clientSubTitle}>{Rede}</Text> */}
       </View>
-      <View style={{marginBottom: 20}}>
+      <View style={{marginBottom: 0}}>
         <Button
           title="Voltar"
           color="#c8aa62"
           onPress={() => navigation.goBack()}
         />
-        <Stock id={itemId} />
+        <Stock id={itemId} active={true} />
       </View>
       {/* <Button title="Click Here" onPress={() => alert('Button Clicked!')} /> */}
     </View>
