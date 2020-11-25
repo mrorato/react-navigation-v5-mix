@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {useCallback, useState} from 'react';
 import Airtable from 'airtable';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -7,7 +8,7 @@ import {
   Linking,
   Image,
   Alert,
-  Button,
+  ScrollView,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
@@ -132,7 +133,7 @@ function DetailsScreen() {
   };
 
   return (
-    <View style={styles.productContainer}>
+    <ScrollView style={styles.productContainer}>
       <Text style={styles.productTitle}>{data.Nome}</Text>
       <Image
         style={styles.productImage}
@@ -168,11 +169,11 @@ function DetailsScreen() {
         <Text style={styles.productButtonText}>ATUALIZAR</Text>
         <Icon name="upload" color={'white'} size={30} />
       </TouchableOpacity>
-      <View style={{paddingTop: 20}}>
+      <View style={{paddingTop: 20, marginBottom: 80}}>
         <Text style={{fontSize: 20, padding: 10}}>Aplicativo</Text>
         <OpenURLButton url={supportedURL}>ATUALIZAR</OpenURLButton>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 export default DetailsScreen;

@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     // borderColor: '#DDD',
     // borderRadius: 5,
     // padding: 20,
-    marginBottom: 20,
+    marginBottom: 10,
   },
   clientButton: {
     height: 42,

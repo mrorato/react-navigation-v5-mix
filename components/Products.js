@@ -81,7 +81,7 @@ const Product = ({product}) => {
       <View style={styles.InputContainer}>
         <Input
           label="Qtd Atual"
-          placeholder={product.fields.Qtd_Atual.toString()}
+          placeholder={data === null ? '0' : data.toString()}
           leftIcon={{type: 'font-awesome', name: 'clipboard', color: '#C89C00'}}
           // numeric
           // value // This prop makes the input to get numeric only
@@ -90,7 +90,7 @@ const Product = ({product}) => {
         />
         <Input
           label="Qtd Sugerida"
-          placeholder={product.fields.Qtd_Sugerida.toString()}
+          placeholder={dataSug === null ? '0' : dataSug.toString()}
           leftIcon={{type: 'font-awesome', name: 'cart-plus', color: '#C89C00'}}
           // numeric
           // value // This prop makes the input to get numeric only
