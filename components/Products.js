@@ -80,7 +80,7 @@ const Product = ({product}) => {
       />
       <View style={styles.InputContainer}>
         <Input
-          label="Qtd Atual"
+          label="Qtd Depósito"
           placeholder={data === null ? '0' : data.toString()}
           leftIcon={{type: 'font-awesome', name: 'clipboard', color: '#C89C00'}}
           // numeric
@@ -89,7 +89,7 @@ const Product = ({product}) => {
           onChangeText={val => textInputQtd(val)}
         />
         <Input
-          label="Qtd Sugerida"
+          label="Qtd Loja"
           placeholder={dataSug === null ? '0' : dataSug.toString()}
           leftIcon={{type: 'font-awesome', name: 'cart-plus', color: '#C89C00'}}
           // numeric
