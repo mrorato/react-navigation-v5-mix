@@ -17,7 +17,7 @@ import {Input} from 'react-native-elements';
 
 //import User from '../components/User';
 const supportedURL =
-  'https://drive.google.com/file/d/1CssYJ44iA2UKyz88FVMiZmgyMhSnnXT8/view?usp=sharing';
+  'https://drive.google.com/drive/folders/1mhFg0sgWpiuEHiC_IwxDm5LpqEQ7586o?usp=sharing';
 const base = new Airtable({apiKey: 'keyTkRzZch5L5fRBj'}).base(
   'appzbWSyUGrDmyr4A',
 );

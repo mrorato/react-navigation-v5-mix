@@ -80,17 +80,18 @@ const Product = ({product}) => {
       />
       <View style={styles.InputContainer}>
         <Input
-          label="Qtd Depósito"
-          placeholder={data === null ? '0' : data.toString()}
+          label={"Qtd Depósito"}
+          placeholder={" "+ product.fields.Qtd_Atual}
           leftIcon={{type: 'font-awesome', name: 'clipboard', color: '#C89C00'}}
           // numeric
-          // value // This prop makes the input to get numeric only
-          keyboardType={'numeric'} // This prop help to open numeric keyboard
+          // value // This prop makes the input  to get numeric only
+          keyboardType={'numeric'} // This prop help to open numeric keyboard 
           onChangeText={val => textInputQtd(val)}
         />
         <Input
-          label="Qtd Loja"
-          placeholder={dataSug === null ? '0' : dataSug.toString()}
+          label={"Qtd Loja"}
+          placeholder={" "+ product.fields.Qtd_Sugerida}
+         // placeholder={product.fields.Qtd_Sugerida.toString()}
           leftIcon={{type: 'font-awesome', name: 'cart-plus', color: '#C89C00'}}
           // numeric
           // value // This prop makes the input to get numeric only
